@@ -13,3 +13,4 @@ GO
 ALTER DATABASE acronis_cms_cards SET RECOVERY FULL;
 
 GO
+--Test
