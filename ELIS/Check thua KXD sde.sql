@@ -1,0 +1,1 @@
+select * from sde.THUADAT WHERE (KVHC_ID = 109499) and SOTHUA = 'KXD'

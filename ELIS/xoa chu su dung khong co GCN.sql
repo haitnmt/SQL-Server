@@ -1,0 +1,1 @@
+delete ChuSuDung where not (ChuSuDung.MaChuSuDung in(select GCNQSDD.MaChuSuDung from GCNQSDD))

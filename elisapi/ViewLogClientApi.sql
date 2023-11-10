@@ -1,0 +1,11 @@
+SELECT TOP (1000) [ID]
+      ,[EventTime]
+      ,[AccessKey]
+      ,[ClientName]
+      ,[Origanization]
+      ,[IPAddress]
+      ,[Template]
+      ,[Description]
+      ,[EventMessage]
+  FROM [elisapi].[dbo].[ViewLogClientApi]
+  ORDER BY [EventTime] DESC	

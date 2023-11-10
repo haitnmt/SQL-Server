@@ -1,0 +1,1 @@
+update [DotCapGCN] set [MaNhomDotCap] = 508 where [MaNhomDotCap] is null and MaDVHC = 109307 and MaDotCap = 930700038

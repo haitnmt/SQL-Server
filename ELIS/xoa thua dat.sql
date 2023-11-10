@@ -1,0 +1,1 @@
+delete ThuaDat where MaThuaDat in (940905204,940905205)

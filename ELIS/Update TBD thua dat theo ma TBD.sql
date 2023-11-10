@@ -1,0 +1,1 @@
+update ThuaDat set [MaToBanDo] = 93760028 where MaToBanDo = 93760069

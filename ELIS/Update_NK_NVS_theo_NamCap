@@ -1,0 +1,42 @@
+DECLARE @MaDVHC int = 109499
+DECLARE @NamCap int = 2019
+
+DECLARE @DKTimKiem_GCN table (ID int identity, MaGCN bigint, NgayKy DateTime, NgayVaoSo DateTime)
+
+Insert into  @DKTimKiem_GCN
+    SELECT GCNQSDD.MaGCN, GCNQSDD.NgayKy, GCNQSDD.NgayVaoSo
+    FROM            GCNQSDD INNER JOIN
+                            DangKyQSDD ON GCNQSDD.MaDangKy = DangKyQSDD.MaDangKy INNER JOIN
+                         ThuaDat ON DangKyQSDD.MaThuaDat = ThuaDat.MaThuaDat INNER JOIN
+                         ToBanDo ON ThuaDat.MaToBanDo = ToBanDo.MaToBanDo INNER JOIN
+                         DangKyMDSDD ON GCNQSDD.MaGCN = DangKyMDSDD.MaGCN INNER JOIN
+                         MucDichSDD ON DangKyMDSDD.MaMDSDD = MucDichSDD.MaMDSDD
+    WHERE       ((GCNQSDD.NgayKy = '1900-01-01') OR (GCNQSDD.NgayVaoSo = '1900-01-01')) 
+                AND (MucDichSDD.KyHieu = N'LUC')
+                AND (LEN(GCNQSDD.SoSerial) > 0) 
+                AND (GCNQSDD.NamCap <= @NamCap) 
+                --AND (ToBanDo.MaDVHC = @MaDVHC)
+
+
+DECLARE
+    @counter    INT = 1,
+    @max        INT = 0
+  SELECT @max = COUNT(ID) FROM @DKTimKiem_GCN
+  
+  
+  --Loop
+WHILE @counter <= @max
+BEGIN
+    DECLARE
+        @NgayKy DateTime,
+        @NgayVaoSo  DateTime,
+        @MaGCN Bigint
+    SELECT @MaGCN = MaGCN, @NgayKy = NgayKy, @NgayVaoSo = NgayVaoSo FROM @DKTimKiem_GCN WHERE ID = @counter
+    IF @NgayKy > '1900-01-01'
+        UPDATE GCNQSDD SET NgayVaoSo = @NgayKy WHERE MaGCN = @MaGCN
+    IF @NgayVaoSo > '1900-01-01'
+        UPDATE GCNQSDD SET NgayKy = @NgayVaoSo WHERE MaGCN = @MaGCN
+    SET @counter = @counter + 1
+END
+
+
