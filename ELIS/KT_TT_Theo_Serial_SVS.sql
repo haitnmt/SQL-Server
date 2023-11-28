@@ -1,10 +1,10 @@
 ﻿DECLARE @DKTimKiem_Serial_tbl table (Seri nvarchar(50))
 --Danh sách CMND hoặc CCCD--
 Insert into  @DKTimKiem_Serial_tbl (Seri) VALUES 
-(N'BU 753383'),
+(N'AE 625033'),
+(N'DL 049574'),
 
-
-(N'11111')
+(N'CS 000011')
 ---Bắt đầu tìm---
 DECLARE @DKTimKiem_SVS_tbl table (SVS nvarchar(200))
 --Insert into  @DKTimKiem_SVS_tbl (SVS) VALUES (N'Nguyễn Thị Thu Hồng'), (N'Trần Đình Trung')
