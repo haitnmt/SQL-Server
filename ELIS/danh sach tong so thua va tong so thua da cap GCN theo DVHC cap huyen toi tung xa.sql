@@ -2,7 +2,7 @@ BEGIN
 DECLARE @TH_Table TABLE (MaDVHC int, DVHC nVarchar(200), TongSoThua int, TongSoThua_Co_SVS_Ko_Seri int, ThuaDatCapGCN int, ThuaDatCapGCN_sau_2016 int,GCN_O_Truoc_2016 int, CoTaiSan int, 
 						CoThongTinCu int, CoThongTinCu_T int, GCN_LUC int , GCN_O int, O int, LUC int, Tong_GCN_2016 int, Tong_GCN_2017 int, Tong_GCN_2018 int, Tong_GCN_2019 int, Tong_GCN_LUC_2018 int, 
 						Tong_GCN_LUC_2019 int, Tong_Giao_QL int, Tong_Giao_QL_2 int,Tong_Giao_QL_3 int, Tong_Thua_HGD int, Tong_Thua_TC int, Tong_GCN_2016_2022 int);
-DECLARE @MaHuyen int = 264
+DECLARE @MaHuyen int = 258
 Insert into @TH_Table(MaDVHC,DVHC)
 Select MaDVHC, Ten FROM DVHC WHERE DVHC.MaTinh=27 and DVHC.MaHuyen=@MaHuyen and DVHC.MaXa!=0
 
@@ -197,7 +197,7 @@ BEGIN
                          DangKyQSDD ON GCNQSDD.MaDangKy = DangKyQSDD.MaDangKy INNER JOIN
                          ThuaDat ON DangKyQSDD.MaThuaDat = ThuaDat.MaThuaDat INNER JOIN
                          ToBanDo ON ThuaDat.MaToBanDo = ToBanDo.MaToBanDo
-						WHERE (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) AND (TRY_CAST(GCNQSDD.NamCap AS INT) IN (2016,2017,2018,2019,2020,2021,2022)))
+						WHERE (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) AND (TRY_CAST(GCNQSDD.NamCap AS INT) IN (2016,2017,2018,2019,2020,2021,2022,2023)))
 	WHERE MaDVHC = @MaDVHC
 	SET @MaDVHC = (Select MIN(MaDVHC) FROM DVHC WHERE DVHC.MaTinh=27 and DVHC.MaHuyen=@MaHuyen and DVHC.MaXa!=0 and DVHC.MaDVHC > @MaDVHC)
 END
