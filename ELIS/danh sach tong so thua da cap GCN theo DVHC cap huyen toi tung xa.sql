@@ -2,7 +2,7 @@ Use ELISTuSon
 GO
 BEGIN
 DECLARE @TH_Table TABLE (MaDVHC int, DVHC nVarchar(200), TongSoThua int);
-DECLARE @MaHuyen int = 261;
+DECLARE @MaHuyen int = 256;
 Insert into @TH_Table(MaDVHC,DVHC)
 Select MaDVHC, Ten FROM DVHC WHERE DVHC.MaTinh=27 and DVHC.MaHuyen=@MaHuyen and DVHC.MaXa!=0
 

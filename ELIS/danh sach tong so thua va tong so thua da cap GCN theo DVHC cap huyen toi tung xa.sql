@@ -2,7 +2,7 @@ BEGIN
 DECLARE @TH_Table TABLE (MaDVHC int, DVHC nVarchar(200), TongSoThua int, TongSoThua_Co_SVS_Ko_Seri int, ThuaDatCapGCN int, ThuaDatCapGCN_sau_2016 int,GCN_O_Truoc_2016 int, CoTaiSan int, 
 						CoThongTinCu int, CoThongTinCu_T int, GCN_LUC int , GCN_O int, O int, LUC int, Tong_GCN_2016 int, Tong_GCN_2017 int, Tong_GCN_2018 int, Tong_GCN_2019 int, Tong_GCN_LUC_2018 int, 
 						Tong_GCN_LUC_2019 int, Tong_Giao_QL int, Tong_Giao_QL_2 int,Tong_Giao_QL_3 int, Tong_Thua_HGD int, Tong_Thua_TC int, Tong_GCN_2016_2022 int);
-DECLARE @MaHuyen int = 260
+DECLARE @MaHuyen int = 264
 Insert into @TH_Table(MaDVHC,DVHC)
 Select MaDVHC, Ten FROM DVHC WHERE DVHC.MaTinh=27 and DVHC.MaHuyen=@MaHuyen and DVHC.MaXa!=0
 
@@ -72,7 +72,7 @@ BEGIN
                          DangKyQSDD ON GCNQSDD.MaDangKy = DangKyQSDD.MaDangKy INNER JOIN
                          ThuaDat ON DangKyQSDD.MaThuaDat = ThuaDat.MaThuaDat INNER JOIN
                          ToBanDo ON ThuaDat.MaToBanDo = ToBanDo.MaToBanDo
-						WHERE (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) AND (GCNQSDD.NamCap >= 2016)),
+						WHERE (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) AND TRY_CAST(GCNQSDD.NamCap AS INT) >= 2016),
 	GCN_O_Truoc_2016	= (SELECT        COUNT(ThuaDat.ThuaDatSo) AS Expr1
 						FROM            GCNQSDD INNER JOIN
                          DangKyMDSDD ON GCNQSDD.MaGCN = DangKyMDSDD.MaGCN INNER JOIN
@@ -81,7 +81,7 @@ BEGIN
                          ToBanDo ON ThuaDat.MaToBanDo = ToBanDo.MaToBanDo INNER JOIN
                          DangKyMDSDD AS DangKyMDSDD_1 ON GCNQSDD.MaGCN = DangKyMDSDD_1.MaGCN INNER JOIN
                          MucDichSDD ON DangKyMDSDD.MaMDSDD = MucDichSDD.MaMDSDD AND DangKyMDSDD_1.MaMDSDD = MucDichSDD.MaMDSDD
-						WHERE        (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) and ((MucDichSDD.KyHieu = N'ONT') or (MucDichSDD.KyHieu = N'ODT')) AND (GCNQSDD.NamCap < 2016)),
+						WHERE        (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) and ((MucDichSDD.KyHieu = N'ONT') or (MucDichSDD.KyHieu = N'ODT')) AND TRY_CAST(GCNQSDD.NamCap AS INT) < 2016),
 	CoTaiSan			= (SELECT        COUNT(ThuaDat.ThuaDatSo)
 						FROM            ThuaDat INNER JOIN
                          ToBanDo ON ThuaDat.MaToBanDo = ToBanDo.MaToBanDo INNER JOIN
@@ -103,28 +103,28 @@ BEGIN
                          DangKyQSDD ON GCNQSDD.MaDangKy = DangKyQSDD.MaDangKy INNER JOIN
                          ThuaDat ON DangKyQSDD.MaThuaDat = ThuaDat.MaThuaDat INNER JOIN
                          ToBanDo ON ThuaDat.MaToBanDo = ToBanDo.MaToBanDo
-						WHERE (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) AND (GCNQSDD.NamCap = 2016)),
+						WHERE (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) AND (TRY_CAST(GCNQSDD.NamCap AS INT) = 2016)),
 	Tong_GCN_2017		= (SELECT        Count(ThuaDat.ThuaDatSo)
 						FROM            GCNQSDD INNER JOIN
                          DangKyMDSDD ON GCNQSDD.MaGCN = DangKyMDSDD.MaGCN INNER JOIN
                          DangKyQSDD ON GCNQSDD.MaDangKy = DangKyQSDD.MaDangKy INNER JOIN
                          ThuaDat ON DangKyQSDD.MaThuaDat = ThuaDat.MaThuaDat INNER JOIN
                          ToBanDo ON ThuaDat.MaToBanDo = ToBanDo.MaToBanDo
-						WHERE (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) AND (GCNQSDD.NamCap = 2017)),
+						WHERE (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) AND (TRY_CAST(GCNQSDD.NamCap AS INT) = 2017)),
 	Tong_GCN_2018		= (SELECT        Count(ThuaDat.ThuaDatSo)
 						FROM            GCNQSDD INNER JOIN
                          DangKyMDSDD ON GCNQSDD.MaGCN = DangKyMDSDD.MaGCN INNER JOIN
                          DangKyQSDD ON GCNQSDD.MaDangKy = DangKyQSDD.MaDangKy INNER JOIN
                          ThuaDat ON DangKyQSDD.MaThuaDat = ThuaDat.MaThuaDat INNER JOIN
                          ToBanDo ON ThuaDat.MaToBanDo = ToBanDo.MaToBanDo
-						WHERE (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) AND (GCNQSDD.NamCap = 2018)),
+						WHERE (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) AND (TRY_CAST(GCNQSDD.NamCap AS INT) = 2018)),
 	Tong_GCN_2019		= (SELECT        Count(ThuaDat.ThuaDatSo)
 						FROM            GCNQSDD INNER JOIN
                          DangKyMDSDD ON GCNQSDD.MaGCN = DangKyMDSDD.MaGCN INNER JOIN
                          DangKyQSDD ON GCNQSDD.MaDangKy = DangKyQSDD.MaDangKy INNER JOIN
                          ThuaDat ON DangKyQSDD.MaThuaDat = ThuaDat.MaThuaDat INNER JOIN
                          ToBanDo ON ThuaDat.MaToBanDo = ToBanDo.MaToBanDo
-						WHERE (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) AND (GCNQSDD.NamCap = 2019)),
+						WHERE (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) AND (TRY_CAST(GCNQSDD.NamCap AS INT) = 2019)),
 	Tong_GCN_LUC_2018			= (SELECT        COUNT(ThuaDat.ThuaDatSo)
 						FROM            GCNQSDD INNER JOIN
                          DangKyMDSDD ON GCNQSDD.MaGCN = DangKyMDSDD.MaGCN INNER JOIN
@@ -133,7 +133,7 @@ BEGIN
                          ToBanDo ON ThuaDat.MaToBanDo = ToBanDo.MaToBanDo INNER JOIN
                          DangKyMDSDD AS DangKyMDSDD_1 ON GCNQSDD.MaGCN = DangKyMDSDD_1.MaGCN INNER JOIN
                          MucDichSDD ON DangKyMDSDD.MaMDSDD = MucDichSDD.MaMDSDD AND DangKyMDSDD_1.MaMDSDD = MucDichSDD.MaMDSDD
-						WHERE        (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) AND (GCNQSDD.NamCap = 2018) and (MucDichSDD.KyHieu = N'LUC')),
+						WHERE        (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) AND (TRY_CAST(GCNQSDD.NamCap AS INT) = 2018) and (MucDichSDD.KyHieu = N'LUC')),
 	Tong_GCN_LUC_2019			= (SELECT        COUNT(ThuaDat.ThuaDatSo)
 						FROM            GCNQSDD INNER JOIN
                          DangKyMDSDD ON GCNQSDD.MaGCN = DangKyMDSDD.MaGCN INNER JOIN
@@ -142,7 +142,7 @@ BEGIN
                          ToBanDo ON ThuaDat.MaToBanDo = ToBanDo.MaToBanDo INNER JOIN
                          DangKyMDSDD AS DangKyMDSDD_1 ON GCNQSDD.MaGCN = DangKyMDSDD_1.MaGCN INNER JOIN
                          MucDichSDD ON DangKyMDSDD.MaMDSDD = MucDichSDD.MaMDSDD AND DangKyMDSDD_1.MaMDSDD = MucDichSDD.MaMDSDD
-						WHERE        (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) AND (GCNQSDD.NamCap = 2019) and (MucDichSDD.KyHieu = N'LUC')),
+						WHERE        (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) AND (TRY_CAST(GCNQSDD.NamCap AS INT) = 2019) and (MucDichSDD.KyHieu = N'LUC')),
 	Tong_Giao_QL		= (SELECT        COUNT(ThuaDat.ThuaDatSo)
 						FROM            GCNQSDD INNER JOIN
                          DangKyMDSDD ON GCNQSDD.MaGCN = DangKyMDSDD.MaGCN INNER JOIN
@@ -197,7 +197,7 @@ BEGIN
                          DangKyQSDD ON GCNQSDD.MaDangKy = DangKyQSDD.MaDangKy INNER JOIN
                          ThuaDat ON DangKyQSDD.MaThuaDat = ThuaDat.MaThuaDat INNER JOIN
                          ToBanDo ON ThuaDat.MaToBanDo = ToBanDo.MaToBanDo
-						WHERE (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) AND (GCNQSDD.NamCap IN (2016,2017,2018,2019,2020,2021,2022)))
+						WHERE (ToBanDo.MaDVHC = @MaDVHC) AND ((GCNQSDD.SoSerial <> '') OR (GCNQSDD.SoSerial = '0')) AND (TRY_CAST(GCNQSDD.NamCap AS INT) IN (2016,2017,2018,2019,2020,2021,2022)))
 	WHERE MaDVHC = @MaDVHC
 	SET @MaDVHC = (Select MIN(MaDVHC) FROM DVHC WHERE DVHC.MaTinh=27 and DVHC.MaHuyen=@MaHuyen and DVHC.MaXa!=0 and DVHC.MaDVHC > @MaDVHC)
 END
