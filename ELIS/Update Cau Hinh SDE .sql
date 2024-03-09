@@ -1,13 +1,13 @@
-DECLARE @IP char(20) = N'10.86.9.8'
-DECLARE @Pas char(20) = N'@@@@@@'
-DECLARE @Acc  char(20) = N'@@@'
+DECLARE @IP char(20) = N'192.168.9.6'
+DECLARE @Pas char(20) = N'3oU%6Vvvtpsedt%ts@T&bB&vVs'
+DECLARE @Acc  char(20) = N'sde'
 
 
-use elis_vilg_dp;
-DECLARE @PortBN nvarchar(50) = N'5156'
-DECLARE @DBBN char(20) = N'sde_BN'
-UPDATE CauHinhRieng SET SDE_IP = @IP, SDE_Port = @PortBN, SDE_DB = @DBBN, SDE_Password = @Pas, [SDE_Account] = @Acc
-UPDATE [HeThong] SET [SDE_IP] = @IP, SDE_Port = @PortBN, SDE_DB = @DBBN, SDE_Password = @Pas, [SDE_Account] = @Acc;
+--use elis_vilg_dp;
+--DECLARE @PortBN nvarchar(50) = N'5156'
+--DECLARE @DBBN char(20) = N'sde_BN'
+--UPDATE CauHinhRieng SET SDE_IP = @IP, SDE_Port = @PortBN, SDE_DB = @DBBN, SDE_Password = @Pas, [SDE_Account] = @Acc
+--UPDATE [HeThong] SET [SDE_IP] = @IP, SDE_Port = @PortBN, SDE_DB = @DBBN, SDE_Password = @Pas, [SDE_Account] = @Acc;
 
 --use elisbacninh;
 --DECLARE @PortBN nvarchar(50) = N'5156'
@@ -44,11 +44,11 @@ UPDATE [HeThong] SET [SDE_IP] = @IP, SDE_Port = @PortBN, SDE_DB = @DBBN, SDE_Pas
 --UPDATE [HeThong] SET [SDE_IP] = @IP, SDE_Port = @PortTT, SDE_DB = @DBTT, SDE_Password = @Pas, [SDE_Account] = @Acc;
 
 
---use elistiendu;
---DECLARE @PortTD nvarchar(50) = N'5160'
---DECLARE @DBTD char(20) = N'sde_TD'
---UPDATE CauHinhRieng SET SDE_IP = @IP, SDE_Port = @PortTD, SDE_DB = @DBTD, SDE_Password = @Pas, [SDE_Account] = @Acc
---UPDATE [HeThong] SET [SDE_IP] = @IP, SDE_Port = @PortTD, SDE_DB = @DBTD, SDE_Password = @Pas, [SDE_Account] = @Acc;
+use elistiendu;
+DECLARE @PortTD nvarchar(50) = N'5160'
+DECLARE @DBTD char(20) = N'sdetienduda'
+UPDATE CauHinhRieng SET SDE_IP = @IP, SDE_Port = @PortTD, SDE_DB = @DBTD, SDE_Password = @Pas, [SDE_Account] = @Acc
+UPDATE [HeThong] SET [SDE_IP] = @IP, SDE_Port = @PortTD, SDE_DB = @DBTD, SDE_Password = @Pas, [SDE_Account] = @Acc;
 
 
 --use elistuson;
